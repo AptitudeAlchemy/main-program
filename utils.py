@@ -76,6 +76,7 @@ def write_data_server(record: Entry) -> bool | None:
     # "bytes_recv": "23563 bytes"
 
     import requests
+    import datetime
 
     try:
 
@@ -86,7 +87,8 @@ def write_data_server(record: Entry) -> bool | None:
             'uptime':record.get_uptime(),
             'bytes_sent':convert(record.get_bytes_sent()),
             'bytes_recv':convert(record.get_bytes_recv()),
-            'connection_type':record.get_connection_type()
+            'connection_type':record.get_connection_type(),
+            'created_at':datetime.datetime.now().strftime("%Y:%m:%d %H:%M:%S")
         }
         response = requests.post(API, headers={'content-type':'application/json'}, json=payload)
 
